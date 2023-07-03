@@ -34176,6 +34176,7 @@ line-height: 166%;
 }
 .question__container__accordionContainer__accordionButton__arraow {
   width: 38px;
+  margin-left: 15px;
     margin-right: 45px;
 }
 .milenia-colorizer-bg-color {
@@ -34278,8 +34279,8 @@ body .room-description {
     padding-bottom: 55px !important;
 }
 .home-news .milenia-entity-content.milenia-aligner {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   background: transparent;
 }
 input.carousel-locator {
