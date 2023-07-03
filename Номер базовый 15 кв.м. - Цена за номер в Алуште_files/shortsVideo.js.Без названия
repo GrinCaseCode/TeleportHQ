@@ -1,0 +1,228 @@
+if (window.innerWidth <= 550) {
+    let getStatusPlayerShort
+    let playStatusShort = 0
+
+    var shortsElements = document.querySelectorAll('.shortsVideo__container__block__video')
+
+    function closeShort () {
+        document.body.removeAttribute('style')
+        document.querySelector("html").removeAttribute('style')
+        document.querySelector('.shortsVideo').style.display = 'none'
+        document.querySelector('.headerContainer').classList.remove('openShorts')
+        document.querySelector('.mobilePanelMenuContainer').removeAttribute('style')
+        document.querySelectorAll('.shortsVideo__container__block').forEach(e => {
+            e.querySelector('.shortsVideo__container__block__video').player.stopVideo()
+        })
+        clearInterval(getStatusPlayerShort)
+    }
+
+
+    async function laodSlideShots () {
+        if (!document.querySelector('.shortsVideo__container.slick-initialized')) {
+            await $('.shortsVideo__container').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                swipeToSlide: true,
+                touchMove: true,
+                dots: false,
+                arrows: false,
+                focusOnSelect: true,
+                swipe: true,
+                draggable: true,
+                lazyLoad: false,
+                infinite: false,
+                centerMode: true,
+                variableWidth: true,
+
+            });
+
+
+            let checkPosition = -1
+
+
+            $('.shortsVideo__container').on('afterChange', function (event, slick, direction) {
+
+                document.querySelectorAll('.shortsVideo__container__block').forEach(e => {
+
+                    if (checkPosition != direction && e.querySelector('.shortsVideo__container__block__video').player) {
+                        if (e.classList.value.indexOf('slick-current') > -1 && activSlideShort != e.querySelector('.shortsVideo__container__block__video')) {
+                            e.querySelector('.shortsVideo__container__block__video').player.playVideo()
+                            e.querySelector('.shortsVideo__container__block__video').player.unMute()
+                            activSlideShort = e.querySelector('.shortsVideo__container__block__video')
+                        } else if (e.classList.value.indexOf('slick-current') == -1) {
+                            e.querySelector('.shortsVideo__container__block__video').player.pauseVideo()
+                        }
+                    }
+
+
+                })
+                checkPosition = direction == checkPosition ? checkPosition : direction
+            });
+
+            $('.shortsVideo__container').on('edge', function (event, slick, direction) {
+
+                if (direction == 'left') {
+                    closeShort()
+                }
+
+            });
+        }
+    }
+
+
+
+    function LoadShorts () {
+        for (let e of shortsElements) {
+            let shortPlayer = new YT.Player(e.id, {
+                videoId: e.getAttribute('videoId'),
+                width: '100%',
+                height: '100%',
+                playerVars: {
+                    'start': 0,
+                    'autoplay': 0,
+                    'playsinline': 1,
+                    'fs': 1,
+                    'disablekb': 1,
+                    'loop': 0,
+                    'enablejsapi': 1,
+                    'playerapiid': e.id,
+                    'controls': 0,
+                    'modestbranding': 0,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'iv_load_policy': 3,
+                    'origin': location.hostname,
+                    'playlist': e.getAttribute('videoId'),
+                    'mute': 1,
+                },
+
+            });
+            document.querySelector(`#${e.id}`).player = shortPlayer
+        }
+    }
+
+
+
+
+
+
+    document.querySelector('.headerMobileBlock__close').addEventListener('click', (e) => {
+        closeShort()
+    })
+
+
+
+    window.addEventListener('load', () => {
+
+        const newFeatureSite = document.querySelector('.newFeatureSite#shortVideo')
+        if (newFeatureSite) {
+
+
+            newFeatureSite.classList.add('active')
+
+            if (newFeatureSite.getAttribute('data-timerHide')) {
+                const newFeatureSiteTimer = setTimeout(() => {
+                    newFeatureSite.classList.remove('active')
+                }, Number(newFeatureSite.getAttribute('data-timerHide')) * 1000)
+
+                newFeatureSite.addEventListener('click', () => {
+                    clearTimeout(newFeatureSiteTimer)
+                    newFeatureSite.classList.remove('active')
+                })
+            }
+        }
+
+        const shortButton = document.querySelector('.headerMobileBlock__container')
+
+        document.querySelector('.headerMobileBlock__button').style.display = 'none'
+        shortButton.style.display = 'flex'
+
+
+        shortButton.addEventListener('click', (e) => {
+
+            laodSlideShots()
+
+            document.querySelector('.shortsVideo').style.display = 'flex'
+            document.querySelector('.headerContainer').classList.add('openShorts')
+            document.body.style.setProperty("overflow", "hidden", "important")
+            document.querySelector("html").style.setProperty("overflow", "hidden", "important")
+            document.querySelector('.mobilePanelMenuContainer').style.display = "none"
+
+            if (document.querySelector('.shortsVideo__container.slick-initialized')) {
+                $('.shortsVideo__container').slick('slickGoTo', 0);
+                document.querySelectorAll('.shortsVideo__container__block').forEach(e => {
+
+                    if (e.classList.value.indexOf('slick-current') > -1 && e.querySelector('.shortsVideo__container__block__video').player) {
+                        e.querySelector('.shortsVideo__container__block__video').player.playVideo()
+                        activSlideShort = e.querySelector('.shortsVideo__container__block__video')
+                        e.querySelector('.shortsVideo__container__block__video').player.unMute()
+                    }
+                })
+            }
+
+
+            getStatusPlayerShort = setInterval(() => {
+                document.querySelectorAll('.shortsVideo__container__block').forEach(e => {
+                    if (e.classList.value.indexOf('slick-current') > -1 && e.querySelector('.shortsVideo__container__block__video').player.getPlayerState) {
+                        const selectPlayer = e.querySelector('.shortsVideo__container__block__video')
+
+
+                        if (selectPlayer.player.getPlayerState() == 2) {
+                            playStatusShort = 0
+                        } else if (selectPlayer.player.getPlayerState() == 1) {
+                            activSlideShort = e.querySelector('.shortsVideo__container__block__video')
+                            playStatusShort = 1
+                        }
+
+
+                        if (selectPlayer.player.getPlayerState() == 0) {
+                            const indexSlide = $('.shortsVideo__container').slick('slickCurrentSlide');
+                            if ((indexSlide + 1) == document.querySelectorAll('.shortsVideo__container__block').length) {
+                                closeShort()
+                            } else {
+                                selectPlayer.player.stopVideo()
+                                $('.shortsVideo__container').slick('slickNext');
+                            }
+                        }
+
+
+                    }
+
+                })
+            }, 1)
+
+        })
+
+    })
+
+
+
+
+
+
+
+    document.querySelectorAll('.shortsVideo__container__block__video__touchPanel').forEach(e => {
+        e.addEventListener('click', () => {
+            document.querySelectorAll('.shortsVideo__container__block').forEach(e => {
+                if (e.classList.value.indexOf('slick-current') > -1 && e.querySelector('.shortsVideo__container__block__video').player.getPlayerState) {
+                    if (playStatusShort == 1) {
+                        e.querySelector('.shortsVideo__container__block__video').player.pauseVideo()
+                        playStatusShort = 0
+                        return
+                    } else if (playStatusShort == 0) {
+                        e.querySelector('.shortsVideo__container__block__video').player.playVideo()
+                        e.querySelector('.shortsVideo__container__block__video').player.unMute()
+                        activSlideShort = e.querySelector('.shortsVideo__container__block__video')
+                        playStatusShort = 1
+                        return
+                    }
+                }
+
+            })
+        })
+    })
+
+
+    window.LoadShorts = LoadShorts
+}
+
