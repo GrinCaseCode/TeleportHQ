@@ -34013,6 +34013,11 @@ footer
   }
 }
 
+
+/*Правки редизайн*/
+/*Правки редизайн*/
+/*Правки редизайн*/
+/*Правки редизайн*/
 .milenia-rev-slider-wrapper .milenia-section--breadcrumb {
   top: 0;
   display: flex;
@@ -34159,9 +34164,7 @@ line-height: 166%;
 .page__container.slider__container h4 {
   padding-bottom: 50px;
 }
-.question__container__accordionContainer__accordionBlock {
-    margin: 0;
-}
+
 #accordion__container .page__container__block {
   margin-left: 8.33333%;
   margin-right: 8.33333%;
@@ -34309,6 +34312,30 @@ input.carousel-locator:checked {
     order: -1;
     width: 100%;
 }
+.head-configuration {
+margin-bottom: 27px;
+  max-width: 1030px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.arrow-configuration svg {
+  width: 36px;
+  transition: all 0.5s;
+}
+.head-configuration.active .arrow-configuration svg {
+      -webkit-transform: scale3d(1, -1, 1);
+    -moz-transform: scale3d(1, -1, 1);
+    transform: scale3d(1, -1, 1);
+}
+.dropdown-configuration {
+  display: none;
+}
+.head-configuration h4 {
+  margin: 0;
+}
+
 @media screen and (max-width: 1200px) {
 body .main .milenia-rev-slider-wrapper .milenia-section--breadcrumb .milenia-action-buttons {
     padding: 0 5px;
@@ -34338,6 +34365,9 @@ body .main .milenia-rev-slider-wrapper .milenia-section--breadcrumb .milenia-act
     .question__container__accordionContainer__accordionButton__arraow {
     width: 24px;
     margin-right: 0;
+}
+.arrow-configuration svg {
+  width: 24px;
 }
 .page__container.slider__container h4 {
     padding-bottom: 40px;
@@ -34447,6 +34477,12 @@ body .milenia-grid:not(.owl-carousel):not(.milenia-grid--no-gutters) > .milenia-
 input.carousel-locator {
   top: -50px;
 }
+.question__container__accordionContainer__accordionBlock {
+    margin: 0 15px 0 15px;
+    }
+    .question__container__accordionContainer__accordionButton__arraow {
+    flex: none;
+}
 }
 @media screen and (max-width: 480px) {
 .question__container__accordionContainer__accordionButton {
@@ -34459,3 +34495,7 @@ input.carousel-locator {
     font-size: 32px;
   }
 }
+/*Конец правки редизайн*/
+/*Конец правки редизайн*/
+/*Конец правки редизайн*/
+/*Конец правки редизайн*/
