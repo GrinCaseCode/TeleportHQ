@@ -34324,17 +34324,145 @@ margin-bottom: 27px;
   width: 36px;
   transition: all 0.5s;
 }
-.head-configuration.active .arrow-configuration svg {
+.active.arrow-configuration svg {
       -webkit-transform: scale3d(1, -1, 1);
     -moz-transform: scale3d(1, -1, 1);
     transform: scale3d(1, -1, 1);
 }
 .dropdown-configuration {
-  display: none;
+max-height: 205px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.5s;
+}
+.dropdown-configuration.active {
+  max-height: initial;
+}
+.dropdown-configuration.active::after {
+  opacity: 0;
+  visibility: hidden;
+}
+.dropdown-configuration::after {
+  position: absolute;
+  display: block;
+  content: " ";
+  width: 100%;
+  height: 70%;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(0deg, #F8F8F8 0%, rgba(248, 248, 248, 0.00) 100%);
+backdrop-filter: blur(1.5px);
+transition: all 0.4s;
 }
 .head-configuration h4 {
   margin: 0;
 }
+.arrow-configuration {
+  width: 84px;
+height: 84px;
+bottom: -43px;
+background-color: #F9F9F9;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto;
+position: relative;
+border-radius: 50%;
+cursor: pointer;
+}
+.dropdown-configuration .title-min {
+  display: flex;
+}
+.dropdown-configuration .title-min img {
+  margin-right: 8px;
+}
+.milenia-section.features-section {
+  padding-bottom: 0 !important;
+}
+
+@font-face {
+  font-family: "MuseoSans";
+  src: url("MuseoSansRegular.eot");
+  src: url("MuseoSansRegular.eot?#iefix")format("embedded-opentype"),
+  url("MuseoSansRegular.woff") format("woff"),
+  url("MuseoSansRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+font-family: 'museo_sans_cyrl500';
+src: local('Museo Sans 500'), local('Museo-Sans-500'),
+        url('MuseoSansCyrl-500.woff2') format('woff2'),
+        url('MuseoSansCyrl-500.woff') format('woff'),
+        url('MuseoSansCyrl-500.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+ font-family: 'museo_sans_cyrl700';
+  src: local('Museo Sans 700'), local('Museo-Sans-700'),
+        url('MuseoSansCyrl-700.woff2') format('woff2'),
+        url('MuseoSansCyrl-700.woff') format('woff'),
+        url('MuseoSansCyrl-700.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: "MuseoSans";
+  src: url("MuseoSansBlack.eot");
+  src: url("MuseoSansBlack.eot?#iefix")format("embedded-opentype"),
+  url("MuseoSansBlack.woff") format("woff"),
+  url("MuseoSansBlack.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'museo_sans_cyrl100';
+  src: url('MuseoSansCyrl-100.eot');
+  src: url('MuseoSansCyrl-100.eot?#iefix') format('embedded-opentype'),
+  url('MuseoSansCyrl-100.woff') format('woff'),
+  url('MuseoSansCyrl-100.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+   font-family: 'museo_sans_cyrl300';
+  src: url('MuseoSansCyrl-300.eot');
+  src: url('MuseoSansCyrl-300.eot?#iefix') format('embedded-opentype'),
+  url('MuseoSansCyrl-300.woff') format('woff'),
+  url('MuseoSansCyrl-300.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+.milenia-page-title,
+.milenia-entity-single.milenia-entity--room.milenia-colorizer--scheme-dark .milenia-entity-meta,
+.slider__container__sliderBlock__item__infoBlock__title,
+body,
+.btn-wrap a,
+.milenia-entity-header .milenia-entity-title a.milenia-color--unchangeable,
+.milenia-entities--style-14 .milenia-entity-meta {
+    font-family: 'museo_sans_cyrl300' !important;
+    font-weight: 300 !important;
+}
+.question__container__accordionContainer__accordionButton,
+.question__container__title {
+    font-family: 'museo_sans_cyrl100';
+    font-weight: 100;
+}
+.bottom-text-slider,
+.title-min,
+.milenia-section.milenia-section--py-medium.room-description strong {
+    font-family: 'museo_sans_cyrl500';
+    font-weight: 500;
+}
+.title-min {
+    font-family: 'museo_sans_cyrl700';
+    font-weight: 700;
+}
+.milenia-content {
+    padding-top: 3.9rem;
+    }
 
 @media screen and (max-width: 1200px) {
 body .main .milenia-rev-slider-wrapper .milenia-section--breadcrumb .milenia-action-buttons {
